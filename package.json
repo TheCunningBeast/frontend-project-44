@@ -1,6 +1,6 @@
 {
   "name": "@hexlet/code",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "[![Actions Status](https://github.com/TheCunningBeast/frontend-project-44/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/TheCunningBeast/frontend-project-44/actions)",
   "main": "index.js",
@@ -11,5 +11,8 @@
   "license": "ISC",
   "bin": {
     "brain-games": "bin/brain-games.js"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
   }
 }
