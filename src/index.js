@@ -23,7 +23,7 @@ export default (makeGameCard) => {
     const answer = getAnswer('Your answer: ');
     if (!isCorrectAnswer(answer)) {
       showMessage(`'${answer}' is wrong answer ;(. Correct answer was '${getCorrectAnswer()}'.`);
-      showMessage(`Let's try again, ${name}`);
+      showMessage(`Let's try again, ${name}!`);
       return;
     }
     showMessage('Correct!');
