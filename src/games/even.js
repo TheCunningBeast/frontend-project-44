@@ -1,41 +1,40 @@
-import readlineSync from 'readline-sync';
 import _ from 'lodash';
 
-// game parameters
-const maxNamber = 100;
-const maxRounds = 3;
+const MIN_NUMBER = 0;
+const MAX_NUMBER = 100;
 
-const checkEven = (number) => {
-  if (number % 2 === 0) {
-    return 1;
-  }
-  return 0;
-};
+const makeTask = () => 'Answer "yes" if the number is even, otherwise answer "no".';
 
-const normalizeAnwer = (rawData) => {
-  if (rawData === 'yes') {
-    return 1;
-  }
-  if (rawData === 'no') {
-    return 0;
-  }
-  return -1;
-};
+const makeQuestion = () => _.random(MIN_NUMBER, MAX_NUMBER);
 
-export default () => {
-  console.log('Welcome to the Brain Games!');
-  const name = readlineSync.question('May I have your name?: ');
-  console.log(`Hello, ${name}`);
-  console.log('Answer "yes" if the number is even, otherwise answer "no".');
-  for (let i = 0; i < maxRounds; i += 1) {
-    const number = _.random(0, maxNamber);
-    const rawAnswer = readlineSync.question(`Question: ${number}\nYour answer: `);
-    const normalizedAnswer = normalizeAnwer(rawAnswer);
-    if (normalizedAnswer !== checkEven(number)) {
-      console.log(`Let's try again, " + ${name}`);
-      return;
+const makeGameCard = () => {
+  const task = makeTask();
+  let question = makeQuestion();
+
+  const getTask = () => task;
+  const getQuestion = () => question;
+  const getCorrectAnswer = () => {
+    const isEven = () => question % 2 === 0;
+
+    if (isEven()) {
+      return 'yes';
     }
-    console.log('Correct!');
-  }
-  console.log(`Congratulations, ${name}!`);
+    return 'no';
+  };
+
+  const isCorrectAnswer = (answer) => answer === getCorrectAnswer();
+
+  const refreshQuestion = () => {
+    question = makeQuestion();
+  };
+
+  return ({
+    getTask,
+    getQuestion,
+    getCorrectAnswer,
+    isCorrectAnswer,
+    refreshQuestion,
+  });
 };
+
+export default makeGameCard;
